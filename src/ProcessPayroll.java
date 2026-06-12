@@ -3,7 +3,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class ProcessPayroll {
-
+ // employee
  public static Employee employeeDetails(String id_Number) throws IOException {
  	  
  	   String empFile = "resources/MotorPh.csv";
@@ -26,7 +26,7 @@ public class ProcessPayroll {
  	  }
  	   	return null; 
  	  } 
-
+  // admin
    public static Admin admin(String id_Number, int targetMonth ) throws IOException {
   
     String attendance = "resources/attendance.csv";
@@ -96,7 +96,7 @@ public class ProcessPayroll {
       
     }
   
-  
+ // salary  
   public static double computeAll(double SSS, double philHealth, double pagIbig, double Tax, double grossSalary2) {
   	double totalDeduction = SSS + philHealth + pagIbig + Tax;
   	double netSalary = grossSalary2 - totalDeduction;
@@ -105,8 +105,9 @@ public class ProcessPayroll {
   public static double rawSalary (double totalHours, double getRate) {
    return totalHours * getRate;
   }
+
  
-  
+ // Month  
   public static String month(int m){
   
   	switch (m) {
@@ -120,6 +121,7 @@ public class ProcessPayroll {
   	    default: return "unknown";
   	    
   	}
+  	  
   	
   }	
 }
