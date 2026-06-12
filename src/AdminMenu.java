@@ -100,10 +100,10 @@ import java.io.IOException;
     panel.add(label, gbc);
 
     gbc.gridx = 1; gbc.gridy = 0;
-    panel.add(monthBox, gbc);
+    panel.add(textField, gbc);
      
     gbc.gridx = 2; gbc.gridy = 0;   
-    panel.add(textField, gbc); 
+    panel.add(monthBox, gbc); 
     
     gbc.gridx = 3; gbc.gridy = 0;   
     panel.add(button2, gbc); 
