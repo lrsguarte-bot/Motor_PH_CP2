@@ -20,7 +20,10 @@ public class EmployeeMenu extends JPanel {
  private JLabel result2;
  private JLabel result3;
  private JLabel result4;
- 
+ private JLabel result5;
+ private JLabel result6;
+ private JLabel result7;
+ private JLabel result8;
  
  
 
@@ -141,6 +144,18 @@ private JPanel subPanel4() {
 
  JLabel empBDL = new JLabel("Birth Date: ");
  empBDL.setFont(new Font ("Comic Sans", Font.BOLD,20));
+ 
+ JLabel empSSS = new JLabel("SSS No.: ");
+ empSSS.setFont(new Font ("Comic Sans", Font.BOLD,20));
+ 
+ JLabel empPhil = new JLabel("PhilHealth No.: ");
+ empPhil.setFont(new Font ("Comic Sans", Font.BOLD,20));
+ 
+ JLabel empTIN = new JLabel("TIN No.: ");
+ empTIN.setFont(new Font ("Comic Sans", Font.BOLD,20));
+ 
+ JLabel empPagI = new JLabel("PagIbig No.: ");
+ empPagI.setFont(new Font ("Comic Sans", Font.BOLD,20));
 
  result1 = new JLabel("");
  result1.setFont(new Font ("Comic Sans", Font.BOLD,20));
@@ -153,6 +168,19 @@ private JPanel subPanel4() {
   
  result4 = new JLabel("");
  result4.setFont(new Font ("Comic Sans", Font.BOLD,20));
+
+ result5 = new JLabel("");
+ result5.setFont(new Font ("Comic Sans", Font.BOLD,20));
+ 
+ result6 = new JLabel("");
+ result6.setFont(new Font ("Comic Sans", Font.BOLD,20));
+ 
+ result7 = new JLabel("");
+ result7.setFont(new Font ("Comic Sans", Font.BOLD,20));
+ 
+ result8 = new JLabel("");
+ result8.setFont(new Font ("Comic Sans", Font.BOLD,20));
+ 
  
  gbc.anchor = GridBagConstraints.WEST;   
  gbc.fill = GridBagConstraints.NONE;
@@ -170,6 +198,21 @@ private JPanel subPanel4() {
  gbc.gridx = 0; gbc.gridy = 3; 
  panel.add(empBDL, gbc);
  
+ gbc.gridx = 0; gbc.gridy = 4; 
+ panel.add(empSSS, gbc);
+ 
+ gbc.gridx = 0; gbc.gridy = 5; 
+ panel.add(empPhil, gbc);
+  
+ gbc.gridx = 0; gbc.gridy = 6; 
+ panel.add(empTIN, gbc);
+ 
+ gbc.gridx = 0; gbc.gridy = 7; 
+ panel.add(empPagI, gbc);
+  
+   
+  
+ 
  // result
  gbc.weightx = 1.0;
  gbc.gridx = 1; gbc.gridy = 0;   
@@ -183,9 +226,21 @@ private JPanel subPanel4() {
      
  gbc.gridy = 3; 
  panel.add(result4, gbc);
-   
+
+ gbc.gridy = 4; 
+ panel.add(result5, gbc);
+  
+ gbc.gridy = 5; 
+ panel.add(result6, gbc); 
+ 
+ gbc.gridy = 6; 
+ panel.add(result7, gbc);
+ 
+ gbc.gridy = 7; 
+ panel.add(result8, gbc);
+ 
  gbc.weighty = 1.0; 
- gbc.gridy = 4;
+ gbc.gridy = 8;
  panel.add(Box.createHorizontalGlue(), gbc); 
 
  return panel;
@@ -235,6 +290,7 @@ private JPanel subPanel4() {
     }      
  
  Employee result = ProcessPayroll.employeeDetails(input);
+ IDs resultId = ProcessPayroll.id(input);
 
  if (result !=null) {
 
@@ -242,6 +298,13 @@ private JPanel subPanel4() {
   result2.setText( result.getFname() );
   result3.setText( result.getLname() );
   result4.setText( result.getBday() );  
+  result5.setText( resultId.getSSS() );
+  result6.setText( resultId.getPhilhealth() );
+  result7.setText( resultId.getTIN() );
+  result8.setText( resultId.getPagIbig() );
+        
+    
+  
 
   textField.setText("");
  }
@@ -254,6 +317,11 @@ private JPanel subPanel4() {
       result2.setText("");
       result3.setText("");
       result4.setText("");
+      result5.setText("");
+      result6.setText("");
+      result7.setText("");
+      result8.setText("");
+    
       } 
       }	
 
@@ -271,6 +339,11 @@ private JPanel subPanel4() {
     result2.setText("");
     result3.setText("");
     result4.setText("");
+    result5.setText("");
+    result6.setText("");
+    result7.setText("");
+    result8.setText("");
+    
     
  });
  	

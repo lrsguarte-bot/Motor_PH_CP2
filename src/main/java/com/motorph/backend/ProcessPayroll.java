@@ -22,12 +22,38 @@ public class ProcessPayroll {
  	       }
  	              
  	      if(id_Number.equals(values[0])){
- 	      return new Employee(values[0], values[1], values[2], values[3]);                             	      
+ 	      return new Employee(values[0], values[1], values[2], values[3]);
+ 	                                   	      
  	      }       	
  	    }
  	  }
  	   	return null; 
  	  } 
+ 	  
+  public static IDs id(String id_Number) throws IOException {
+
+  String empFile = "resources/MotorPh.csv";
+  String line = "";
+
+  try( BufferedReader br = new BufferedReader(new FileReader(empFile))) {
+  	br.readLine(); 
+
+  	 while ((line = br.readLine()) !=null ) {  
+  	 String[] values = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+
+  	 if(values.length < 4){
+  	 continue;
+  	 }
+
+  	 if(id_Number.equals(values[0])) {
+  	 return new IDs(values[6], values[7], values[8], values[9]);
+  	 } 
+  	  	  		
+    }
+    }
+    return null;
+    }	  
+    
   // admin
    public static Admin admin(String id_Number, int targetMonth ) throws IOException {
   
