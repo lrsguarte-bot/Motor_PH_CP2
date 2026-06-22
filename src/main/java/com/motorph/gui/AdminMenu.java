@@ -5,6 +5,7 @@ import com.motorph.backend.*;
 import javax.swing.*;
 import java.awt.*; 
 import java.io.IOException;
+import java.io.*;
 
 
  public class AdminMenu extends JPanel {
@@ -12,12 +13,11 @@ import java.io.IOException;
  private JButton button;
  private JButton button1;
  private JButton button2;
+ private JButton button3; //This is the new addition here
  private JTextArea textArea;
  private JTextField textField;
  private JScrollPane scrollPane;
  private JComboBox<Month> monthBox; 
- private JButton button3;
-
 
  public AdminMenu(CardLayout cardLayout, JPanel containerPanel) {
   
@@ -25,7 +25,6 @@ import java.io.IOException;
   this.setLayout(new GridBagLayout());
 
   addComponents();
-  
   listener(cardLayout, containerPanel);
   
 
@@ -59,7 +58,6 @@ import java.io.IOException;
     gbc.insets =  new Insets(5, 10, 10, 10); 
     gbc.gridx = 0; gbc.gridy = 1;
  	panel.add(button1, gbc);
- 	
 
     gbc.weighty = 1.0; 
     gbc.gridx = 0; gbc.gridy = 2;
@@ -88,6 +86,12 @@ import java.io.IOException;
     button2.setFocusable(false);
     button2.setBackground(Color.white);
     button2.setFont(new Font("Comic Sans",Font.BOLD,15));
+    
+    button3 = new JButton("Delete");//This is gonna be for deleting employees
+    button3.setPreferredSize(new Dimension (100,30));
+    button3.setFocusable(false);
+    button3.setBackground(Color.white);
+    button3.setFont(new Font("Comic Sans",Font.BOLD, 15));
         
     monthBox = new JComboBox<>(new Month[] {
   
@@ -116,16 +120,20 @@ import java.io.IOException;
     
     gbc.gridx = 3; gbc.gridy = 0;   
     panel.add(button2, gbc); 
+    
+    gbc.gridx = 4; gbc.gridy = 0;
+    panel.add(button3,gbc);
         
     gbc.weightx = 1.0;
     gbc.gridx = 4; gbc.gridy = 0;
+    
+    
   
     panel.add(Box.createHorizontalGlue(), gbc); 
 
     return panel;
        	
     } 
-    
 
  private JPanel subPanel3() {
 
@@ -138,65 +146,20 @@ import java.io.IOException;
     textArea.setFont(new Font("Comic Sans",Font.BOLD,20));
     
     scrollPane = new JScrollPane(textArea);
-
-     gbc = new GridBagConstraints();
-      gbc.insets =  new Insets(10, 5, 10, 5);
-        
-      gbc.fill = GridBagConstraints.BOTH;
-      gbc.gridx = 0; gbc.gridy = 0; 
-      gbc.weightx = 0.6; gbc.weighty = 1.0; 
-      gbc.gridheight= 20;
-      panel.add(scrollPane, gbc);
-
-    JLabel Title = new JLabel("Add Employee");
-    Title.setFont(new Font("Comic Sans",Font.BOLD,15));
-
-     gbc = new GridBagConstraints();      
-     gbc.insets =  new Insets(10, 5, 10, 5);
-     gbc.gridx = 1; 
-     panel.add(Title, gbc);
-     
-   String[] labelNames = {
-       "Last Name :", "First Name :", "Birthday :", "Address :", 
-       "Phone Number :", "SSS # :", "PhilHealth # :", "TIN # :", 
-       "Pag-IBIG # :", "Status :", "Position :", "Immediate Supervisor :", 
-       "Basic Salary :", "Rice Subsidy :", "Phone Allowance :", 
-       "Clothing Allowance :", "Gross Semi-monthly Rate :", "Hourly Rate :"
-   };
-   
-    JLabel[] labels = new JLabel[labelNames.length];
-    JTextField[] textFields = new JTextField[labelNames.length];
-
-    gbc = new GridBagConstraints();   
-    gbc.weightx = 0.4;     
-    gbc.anchor = GridBagConstraints.WEST;
-
-    for (int i = 0; i < labelNames.length; i++) {
-         labels[i] = new JLabel(labelNames[i]);
-         labels[i].setFont(new Font("Comic Sans", Font.BOLD, 15));     
-         gbc.gridx = 1;          
-         gbc.gridy = i + 1; 
-         gbc.weightx = 0.0;
-         panel.add(labels[i], gbc);
-
-         textFields[i] = new JTextField();
-         textFields[i].setPreferredSize(new Dimension(200, 30));
-         textFields[i].setFont(new Font("Comic Sans", Font.BOLD, 15));       
-         gbc.gridx = 2;
-         gbc.gridy = i + 1;     
-          gbc.weightx = 1.0;   
-         panel.add(textFields[i], gbc);      
-                       	             	
-    }
-
     
-    
+    gbc = new GridBagConstraints();
+    gbc.insets =  new Insets(10, 5, 10, 5);
+      
+    gbc.fill = GridBagConstraints.BOTH;
+    gbc.gridx = 0; gbc.gridy = 0; 
+    gbc.weightx = 1.0; gbc.weighty = 1.0; 
+    gbc.gridheight= 1;
+    panel.add(scrollPane, gbc);
 
     return panel; 	
  } 
-
  
- private void addComponents() { 
+ private void addComponents() {
 
     GridBagConstraints gbc = new GridBagConstraints();
     gbc = new GridBagConstraints();
@@ -226,10 +189,6 @@ import java.io.IOException;
     this.add(subPanel3(), gbc);   
  	
  }
-
- 
- 
-  
 
  private void listener(CardLayout cardLayout, JPanel containerPanel) {
   button2.addActionListener(e -> {   
@@ -298,13 +257,61 @@ import java.io.IOException;
    textArea.setText("");
     
   });
+   
+   button3.addActionListener(e -> {
+       
+       File originalFile = new File("resources/MotorPh.csv");
+        File tempFile = new File("resources/temp.csv");
+        
+        
 
+        // The term or ID you want to match for deletion
+        String targetId = textField.getText();
+        // The column index to check (e.g., index 0 for the first column)
+        int targetColumnIndex = 0; 
 
- }
- }
+        try (BufferedReader br = new BufferedReader(new FileReader(originalFile));
+             BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile))) {
+
+            String line;
+            while ((line = br.readLine()) != null) {
+                // Split row into individual data fields
+                String[] values = line.split(",");
+
+                // Check if the current row matches your deletion condition
+                if (values.length > targetColumnIndex && values[targetColumnIndex].equals(targetId)) {
+                    continue; // Skip writing this line (effectively deletes it)
+                }
+                
+                bw.write(line);
+                bw.newLine();
+            }
+
+        } catch (IOException ex){
+            //This is for catching error
+       DialogCustomizer.show("Something went wrong! ");	   
+       textField.setText("");
+       }
+        // Swap the temporary file into the original file's position
+        if (originalFile.delete()) {
+            tempFile.renameTo(originalFile);
+            System.out.println("Row deleted successfully.");
+            JOptionPane.showMessageDialog(containerPanel, "Deleted Record!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            System.out.println("Could not delete original file.");
+            JOptionPane.showMessageDialog(containerPanel, "Couldn't Delete File","Wrong", JOptionPane.INFORMATION_MESSAGE);
+        }
+       
+       //this is for show to test if the shit indeed worked
+       ;
+
+   });
+  
+ 
  	
-
-
+ }
+    
+ 
  	
-
+ }
 
