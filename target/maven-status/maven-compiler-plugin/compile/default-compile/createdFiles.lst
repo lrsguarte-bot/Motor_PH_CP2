@@ -1,0 +1,17 @@
+com\motorph\backend\GetList.class
+com\motorph\gui\DialogCustomizer.class
+com\motorph\gui\EmployeeMenu.class
+com\motorph\backend\CalculationForHours.class
+com\motorph\backend\Rate.class
+com\motorph\gui\AdminMenu.class
+com\motorph\backend\Employee.class
+com\motorph\backend\ProcessPayroll.class
+AddingEmployee.class
+com\motorph\backend\IDs.class
+com\motorph\backend\Deductions.class
+com\motorph\Main.class
+com\motorph\backend\Month.class
+com\motorph\backend\Verification.class
+com\motorph\backend\Admin.class
+com\motorph\gui\Login.class
+com\motorph\gui\MainFrame.class
